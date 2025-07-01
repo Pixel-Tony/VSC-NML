@@ -1,6 +1,19 @@
-lib/*
-node_modules/*
-lib/nmlc/
-installers/
-package-lock.json
-*.bat
+# Packaging results
+*.vsix
+
+# client part of the package
+client.js
+*.js.map
+node_modules
+tsconfig.tsbuildinfo
+
+# server part of the package
+grammar/*.txt
+NMLServer*
+
+# test files
+test
+
+# IDE files
+.vscode
+.idea

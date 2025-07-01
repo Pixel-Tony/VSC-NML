@@ -1,0 +1,4 @@
+[submodule "src/server"]
+	path = src/server
+	url = git@github.com:Pixel-Tony/NMLServer.git
+	branch = dev

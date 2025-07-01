@@ -1,125 +1,61 @@
 {
-    "name": "nml-language",
-    "displayName": "NewGRF Meta Language",
-    "description": "Adds the NewGRF Meta Language",
-    "author": "spnda",
-    "version": "1.2.4",
-    "publisher": "PNDA",
-    "license": "GPLv2",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/spnda/VSC-NML"
+    "name": "newgrf-meta-language",
+    "publisher": "tony-pixel",
+    "displayName": "NewGRF Meta Language (TEST)",
+    "author": "Tony Pixel",
+    "version": "0.0.3",
+    "main": "client.js",
+    "scripts": {
+        "node-watch": "node esbuild.js --watch",
+        "node-publish": "node esbuild.js --production",
+        "build": "node esbuild.js && dotnet build ./src/server",
+        "dotnet-publish": "dotnet publish ./src/server --configuration Release --sc true --output \".\""
     },
-    "bugs": {
-        "url": "https://github.com/spnda/VSC-NML/issues"
+    "private": "true",
+    "keywords": [],
+    "description": "NewGRF Meta Language for VSCode",
+    "license": "GPL-3.0-only",
+    "repository": {
+        "url": "https://github.com/Pixel-Tony/nml-ext"
     },
     "engines": {
-        "vscode": "^1.57.0"
-    },
-    "categories": [
-        "Programming Languages"
-    ],
-    "keywords": [
-        "nml",
-        "newgrf",
-        "pnml",
-        "lng",
-        "grf",
-        "openttd"
-    ],
-    "contributes": {
-        "languages": [
-            {
-                "id": "newgrfml",
-                "aliases": [
-                    "nml",
-                    "nml",
-                    "NewGRF Meta Language",
-                    "pnml"
-                ],
-                "extensions": [
-                    ".nml",
-                    ".pnml"
-                ],
-                "configuration": "./syntaxes/newgrfml-language-configuration.json"
-            },
-            {
-                "id": "lng",
-                "aliases": [
-                    "LNG",
-                    "lng",
-                    "NewGRF Language File"
-                ],
-                "extensions": [
-                    ".lng"
-                ],
-                "configuration": "./syntaxes/lng-language-configuration.json"
-            }
-        ],
-        "grammars": [
-            {
-                "language": "newgrfml",
-                "scopeName": "source.newgrfml",
-                "path": "./syntaxes/newgrfml.tmLanguage.json"
-            },
-            {
-                "language": "lng",
-                "scopeName": "source.lng",
-                "path": "./syntaxes/lng.tmLanguage.json"
-            }
-        ],
-        "snippets": [
-            {
-                "language": "newgrfml",
-                "path": "./snippets/newgrfml.json"
-            }
-        ],
-        "configuration": {
-            "title": "NewGRF Meta Language",
-            "properties": {
-                "newgrfml.languageFolder": {
-                    "type": "string",
-                    "default": "lang",
-                    "description": "The relative folder where the language files are stored"
-                },
-                "newgrfml.languageId": {
-                    "type": "integer",
-                    "default": 1,
-                    "description": "The default language id to show during suggestions and hover prompts. If not found, the lowest language ID will be used."
-                }
-            }
-        }
+        "vscode": "^1.75.1"
     },
     "files": [
-        "./lib/extension.js",
-        "CHANGELOG.md",
-        "LICENSE"
+        "client.js",
+        "LICENSE.md",
+        "README.md",
+        "grammar",
+        "NMLServer*"
     ],
-    "activationEvents": [
-        "onLanguage:newgrfml",
-        "onLanguage:lng"
-    ],
-    "devDependencies": {
-        "@types/node": "^15.14.9",
-        "@types/vscode": "^1.57.0",
-        "@typescript-eslint/eslint-plugin": "^5.60.1",
-        "@typescript-eslint/parser": "^5.60.1",
-        "eslint": "^8.44.0",
-        "eslint-config-standard": "^17.1.0",
-        "eslint-plugin-import": "^2.26.0",
-        "eslint-plugin-node": "^1.0.0",
-        "eslint-plugin-promise": "^6.1.1",
-        "typescript": "^5.1.6"
-    },
-    "scripts": {
-        "vscode:prepublish": "npm run compile",
-        "compile": "tsc -p ./",
-        "lint": "eslint . --ext .ts,.tsx",
-        "watch": "tsc -watch -p ./"
-    },
-    "main": "./lib/extension.js",
     "dependencies": {
-        "fs": "0.0.1-security",
-        "readline": "^1.3.0"
+        "vscode-languageclient": "^7.0.0"
+    },
+    "devDependencies": {
+        "@types/node": "^20.3.3",
+        "@types/vscode": "^1.75.1",
+        "@vscode/vsce": "^3.6.0",
+        "esbuild": "^0.25.8",
+        "typescript": "^5.1.3"
+    },
+    "contributes": {
+        "configurationDefaults": {
+            "[nml]": {
+                "editor.semanticHighlighting.enabled": true
+            }
+        },
+        "languages": [
+            {
+                "id": "nml",
+                "aliases": [
+                    "NML"
+                ],
+                "extensions": [
+                    "nml",
+                    "pnml"
+                ],
+                "configuration": "grammar/language-configuration.json"
+            }
+        ]
     }
 }
