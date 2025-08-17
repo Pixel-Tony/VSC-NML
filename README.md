@@ -1,11 +1,14 @@
-# [NewGRF Meta Language](https://github.com/OpenTTD/nml) for Visual Studio Code
+## [OpenTTD](https://www.openttd.org/)'s NewGRF Meta Language for Visual Studio Code
 
-VSC-NML adds syntax highlighting, suggestions, snippets and much more for NML.
-VSC-NML is available on the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=PNDA.nml-language)
-and on [Open VSX](https://open-vsx.org/extension/spnda/nml-language).
+### About
+A Visual Studio Code extension for NewGRF Meta Language, or NML, providing features for development assistance, such as:
+ - semantic Syntax Highlight
+ - syntax verification and Diagnostics
+ - Go to Definition
+ - semantic Autocompletion
+and more!
 
-## Features
+This project is a VSCode frontend for universal [NML Language Server](https://github.com/Pixel-Tony/NMLServer).
 
-- Syntax Highlighting for the NewGRF Meta Language and its language files.
-- Suggestions for all keywords and constants.
-- Snippets for NML
+### Licensing
+This project is licensed under MIT license, text of which can be found [here](LICENSE) and [here](https://opensource.org/license/mit).
