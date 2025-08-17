@@ -1,26 +1,21 @@
 'use strict'
 
 import * as path from 'path'
-import { ExtensionContext, ExtensionMode } from 'vscode'
+import * as vscode from 'vscode'
 import { Executable, LanguageClient, LanguageClientOptions, ServerOptions } from 'vscode-languageclient/node'
 
-export function activate(context: ExtensionContext) {
+export function activate(context: vscode.ExtensionContext) {
   const execPrefix = process.platform == 'win32' ? '.exe' : ''
 
   const { exec: serverExec, args: serverArgs } = (
-    context.extensionMode == ExtensionMode.Production
+    context.extensionMode == vscode.ExtensionMode.Production
       ? { exec: context.asAbsolutePath('NMLServer' + execPrefix) }
       : { exec: 'dotnet', args: ['run', '--project', context.asAbsolutePath(path.join('src', 'server'))] }
   )
 
   const serverOptions: ServerOptions = {
-    run: <Executable>{
-      command: serverExec, args: serverArgs, options: { detached: false },
-    },
-    debug: <Executable>{
-      // --inspect=6009: runs the server in Node's Inspector mode so VS Code can attach to the server for debugging
-      command: serverExec, args: serverArgs, options: { execArgv: ['--nolazy', '--inspect=6009'] }
-    }
+    run: <Executable>{ command: serverExec, args: serverArgs, options: { detached: false } },
+    debug: <Executable>{ command: serverExec, args: serverArgs }
   }
 
   // Options to control the language client
@@ -29,15 +24,24 @@ export function activate(context: ExtensionContext) {
       { scheme: 'file', language: 'nml' },
       { scheme: 'file', language: 'pnml' }
     ],
-    // synchronize: { fileEvents: workspace.createFileSystemWatcher("**/.clientrc") },
   }
   // Create the language client
   const client = new LanguageClient(
-    'nmlserver',
-    'NML Intellisense Server',
+    'nmlclient',
+    'NewGRF Meta Language',
     serverOptions,
     clientOptions
   )
-  // Start the client. This will also launch the server
-  context.subscriptions.push(client.start())
+
+  const disposable = vscode.commands.registerTextEditorCommand('nml-language.drawAST',
+    (textEditor: vscode.TextEditor) => {
+      if (context.extensionMode != vscode.ExtensionMode.Development)
+        return vscode.window.showErrorMessage("Command only available in debug")
+
+      client.sendRequest("nml/debug/drawAST", textEditor.document.uri.toString())
+        .then(async (s: string) => await vscode.commands.executeCommand(
+          "vscode.openWith", vscode.Uri.file(s), "imagePreview.previewEditor"))
+    })
+
+  context.subscriptions.push(client.start(), disposable)
 }

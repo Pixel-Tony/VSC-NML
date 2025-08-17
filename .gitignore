@@ -17,3 +17,4 @@ test
 # IDE files
 .vscode
 .idea
+*.code-workspace

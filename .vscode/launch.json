@@ -10,11 +10,11 @@
             "args": [
                 "--extensionDevelopmentPath=${workspaceRoot}",
             ],
-                        "sourceMaps": true,
+            "sourceMaps": true,
             "outFiles": [
                 "${workspaceRoot}/*.js"
             ],
             "preLaunchTask": "npm: build",
-        },
+        }
     ]
 }
