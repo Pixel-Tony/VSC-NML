@@ -3,7 +3,7 @@
     "publisher": "PNDA",
     "displayName": "NewGRF Meta Language",
     "author": "Tony Pixel",
-    "version": "2.0.0-beta",
+    "version": "2.0.0",
     "main": "client.js",
     "scripts": {
         "node-publish": "node esbuild.js --production",
