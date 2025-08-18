@@ -1,5 +1,8 @@
 ## Change Log
 
+### 2.0.2
+- Fixed replace/replace_new/base_graphics/font_glyph blocks not using own argument verification
+
 ### 2.0.0-beta
 - Switched to NML Server for backend
 - Updated  to NML 0.8
