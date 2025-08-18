@@ -1,4 +1,4 @@
-# This workflow runs every few months to automatically update the syntax 
+# This workflow runs every few months to automatically update the syntax
 name: "Syntax Update"
 
 on:
