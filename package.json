@@ -70,9 +70,8 @@
             {
                 "id": "nml",
                 "aliases": [
-                    "newgrfml",
                     "NewGRF Meta Language",
-                    "pnml"
+                    "newgrfml"
                 ],
                 "extensions": [
                     "nml",
