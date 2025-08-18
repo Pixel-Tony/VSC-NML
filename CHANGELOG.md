@@ -1,5 +1,9 @@
 ## Change Log
 
+### 2.0.3
+- Bumped server version to 1.0.1:
+    - Fixed false error highlight for template identifiers.
+
 ### 2.0.2
 - Fixed replace/replace_new/base_graphics/font_glyph blocks not using own argument verification
 
