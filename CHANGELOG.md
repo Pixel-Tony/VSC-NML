@@ -1,5 +1,9 @@
 ## Change Log
 
+### 2.0.4
+- Bumped server version to 1.0.2:
+    - Fixed incorrect argument passed to FindWhereOffset in AbstractSyntaxTree
+
 ### 2.0.3
 - Bumped server version to 1.0.1:
     - Fixed false error highlight for template identifiers.
@@ -9,7 +13,7 @@
 
 ### 2.0.0-beta
 - Switched to NML Server for backend
-- Updated  to NML 0.8
+- Updated to NML 0.8
 
 ### 1.2.4
 - Updated to NML 0.7.4
