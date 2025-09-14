@@ -83,6 +83,21 @@
                 "configuration": "grammar/language-configuration.json"
             }
         ],
+        "semanticTokenTypes": [
+            {
+                "superType": "variable",
+                "id": "constant",
+                "description": "A constant value"
+            }
+        ],
+        "semanticTokenScopes": [
+            {
+                "language": "nml",
+                "scopes": {
+                    "constant" : ["variable.other.constant"]
+                }
+            }
+        ],
         "configuration": {
             "title": "NewGRF Meta Language",
             "properties": {
