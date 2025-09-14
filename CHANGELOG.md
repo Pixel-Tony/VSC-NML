@@ -1,5 +1,9 @@
 ## Change Log
 
+### 2.0.5
+- Fixed language server not activating on old VSCode versions
+- Fixed missing TextMate fallback option for `constant` semantic type
+
 ### 2.0.4
 - Bumped server version to 1.0.2:
     - Fixed incorrect argument passed to FindWhereOffset in AbstractSyntaxTree
