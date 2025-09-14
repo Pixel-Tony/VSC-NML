@@ -46,6 +46,9 @@
     "dependencies": {
         "vscode-languageclient": "^7.0.0"
     },
+    "activationEvents": [
+        "onLanguage:nml"
+    ],
     "devDependencies": {
         "@types/node": "^20.3.3",
         "@types/vscode": "^1.75.1",
