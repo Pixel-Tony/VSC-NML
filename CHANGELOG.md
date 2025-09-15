@@ -1,5 +1,9 @@
 ## Change Log
 
+### 2.0.6
+- Bumped server version to 1.0.3:
+    - Fixed CR whitespace in builtin symbols after splitting grammar files on Windows
+
 ### 2.0.5
 - Fixed language server not activating on old VSCode versions
 - Fixed missing TextMate fallback option for `constant` semantic type
