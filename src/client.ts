@@ -71,7 +71,7 @@ export function activate(context: vscode.ExtensionContext) {
 				if (info.title) {
 					md.appendCodeblock(`${info.title}`, "ts");
 				} else {
-					md.appendMarkdown(`**${word}**\n\n`);
+					md.appendMarkdown(`**${word}**\n\n\n`);
 				}
 				md.appendMarkdown(`${info.description}\n\n`);
 				if (info.example) {
@@ -92,4 +92,5 @@ function loadHoverData(filePath: string): Record<string, any> {
 	const raw = fs.readFileSync(filePath, 'utf8');
 	return JSON.parse(raw);
 }
+
 
