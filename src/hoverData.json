@@ -1,7 +1,7 @@
 {
 	"grf": {
-		"description": "The GRF block. There may ONLY be ONE GRF BLOCK in a NML file.",
-		"example": "grf {\n  grfid: <literal-string>;\n  name: <string>;\n  desc: <string>;\n  version: <expression>;\n  min_compatible_version: <expression>;\n}"
+		"title": "grf {\n  grfid: <literal-string>;\n  name: <string>;\n  desc: <string>;\n  version: <expression>;\n  min_compatible_version: <expression>;\n}",
+		"description": "The GRF block. There may ONLY be ONE GRF BLOCK in a NML file."
 	},
 	"grfid": {
 		"description": "This defines the GRFID of your NewGRF. It's a four-byte string that should be unique.",
@@ -11,6 +11,8 @@
 		"description": "The description is similar to the name of the NewGRF.",
 		"example": "desc: \"Adds 3 new trains.\""
 	},
+
+
 	"FEAT_TRAINS": {
 		"description": "Type of item. Identifier for Trains."
 	},
@@ -74,73 +76,113 @@
 
 
 	"item": {
-		"description": "An item block is a block that defines a (new) vehicle, station, industry, object, etc. This is one of those blocks that come with multiple arguments and need a feature defined.",
-		"example": "item (<feature> [, <identifier> [, <ID>]]) {\n  [<property-block>]\n  [<graphics-block>]\n  [<livery_override-block>]\n}"
+		"title": "item (<feature> [, <identifier> [, <ID>]]) {\n  [<property-block>]\n  [<graphics-block>]\n  [<livery_override-block>]\n}",
+		"description": "An item block is a block that defines a (new) vehicle, station, industry, object, etc. This is one of those blocks that come with multiple arguments and need a feature defined."
 	},
 	"property": {
-		"description": "This defines the GRFID of your NewGRF. It's a four-byte string that should be unique.",
-		"example": "property {\n  <property>: <value>;\n  [<property2>: <value2>;]\n  [...;]\n}"
+		"title": "property {\n  <property>: <value>;\n  [<property2>: <value2>;]\n  [...;]\n}",
+		"description": "This defines the GRFID of your NewGRF. It's a four-byte string that should be unique."
 	},
 	"graphics": {
-		"description": "The graphics block allows to link the item to a graphics definition or to callbacks. You can have the graphics definition also depend on several variables via an intermediate ``(random_)switch`` block.",
-		"example": "graphics {\n  <callback>: <identifier>|<return_value>;\n  [<callback2>: <identifier2>|<return_value2>;]\n  [...;]\n}"
+		"title": "graphics {\n  <callback>: <identifier>|<return_value>;\n  [<callback2>: <identifier2>|<return_value2>;]\n  [...;]\n}",
+		"description": "The graphics block allows to link the item to a graphics definition or to callbacks. You can have the graphics definition also depend on several variables via an intermediate ``(random_)switch`` block."
 	},
 	"spriteset": {
-		"description":"The spriteset defines where sprites can be found in a graphics file, how big these sprites are, what their offsets should be with respect to the ingame bounding box and optionally what compression to use for the sprite. The location of the graphics file can be set once per spriteset or for each sprite separately.\n  - **left_x**: horizontal distance in pixels from the top left of the image file to the top left of the sprite;\n  - **upper_y**: vertical distance in pixels from the top left of the image file to the top left of the sprite;\n  - **width**: width of the sprite in pixels;\n  - **height**: height of the sprite in pixels;\n  - **offset_x**: horizontal offset in pixels from the center of the bounding box (see below);\n  - **offset_y**: vertical offset in pixels from the center of the bounding box (see below);\n  - **filename**: path and file name of the graphics file this sprite is in, if it is different than the one defined in the spriteset itself.",
-		"example": "spriteset (<identifier> [, <graphics_file>]) {\n  <list_of_realsprites>\n  [left_x, upper_y, width, height, offset_x, offset_y]\n  [left_x, upper_y, width, height, offset_x, offset_y, filename]\n  [offset_x, offset_y]\n  [offset_x, offset_y, filename]\n}"
+		"title": "spriteset (<identifier> [, <graphics_file>]) {\n  <list_of_realsprites>\n  [left_x, upper_y, width, height, offset_x, offset_y]\n  [left_x, upper_y, width, height, offset_x, offset_y, filename]\n  [offset_x, offset_y]\n  [offset_x, offset_y, filename]\n}",
+		"description":"The spriteset defines where sprites can be found in a graphics file, how big these sprites are, what their offsets should be with respect to the ingame bounding box and optionally what compression to use for the sprite. The location of the graphics file can be set once per spriteset or for each sprite separately.\n  - **left_x**: horizontal distance in pixels from the top left of the image file to the top left of the sprite;\n  - **upper_y**: vertical distance in pixels from the top left of the image file to the top left of the sprite;\n  - **width**: width of the sprite in pixels;\n  - **height**: height of the sprite in pixels;\n  - **offset_x**: horizontal offset in pixels from the center of the bounding box (see below);\n  - **offset_y**: vertical offset in pixels from the center of the bounding box (see below);\n  - **filename**: path and file name of the graphics file this sprite is in, if it is different than the one defined in the spriteset itself."
 	},
 	"spritegroup": {
-		"description": "A spritegroup combines multiple spritesets into a single entity. It is only available for vehicles and is used to show different graphics for loaded and unloaded vehicles as well as different graphics for vehicles travelling and vehicles in stations.",
-		"example": "spritegroup <identifier> {\n  loading: <spriteset_identifier1>;\n  loaded:  <spriteset_identifier2>;\n}"
+		"title": "spritegroup <identifier> {\n  loading: <spriteset_identifier1>;\n  loaded:  <spriteset_identifier2>;\n}",
+		"description": "A spritegroup combines multiple spritesets into a single entity. It is only available for vehicles and is used to show different graphics for loaded and unloaded vehicles as well as different graphics for vehicles travelling and vehicles in stations."
+	},
+	"spritelayout": {
+		"title": "spritelayout <identifier> {\n  ground { }\n  childsprite { }ºn  building { }\n}",
+		"description": "The sprite layout is composed of one or more sprites. Each sprite is defined by a ``ground``, ``building`` or ``childsprite`` block. What block to use depends on how the sprite is to be placed on the tile.\n  - ``ground`` sprites are drawn at the base of the tile, like grass and concrete, rails etc. in normal TTD. With a few exceptions (e.g. when using custom foundations), you should always provide a ground sprite, even when the building above fully covers it. This because in transparent mode, the building becomes invisible. A tile can only have one ground sprite.\n  - ``building`` sprites are drawn on top of the ground sprite. To determine their location and drawing order (what goes in front of what), they have a 3D bounding box.\n  - With ``childsprite``(s), you can effectively compose sprites from multiple parts. When placing these after a building sprite, they will use the same bounding box as the previous building sprite. When placing them before the first building sprite, they will have no bounding box, as if they would use the 'bounding box' of the ground tile. Multiple childsprites may be used per ground / building sprite.",
+		"example": "spritelayout airport_building1 {\n  ground { sprite: GROUNDSPRITE_NORMAL; }\n  childsprite {\n    sprite: spr_small_dirt_ne; // custom spriteset\n    always_draw: 1; // also draw in transparent mode\n  }\n  building {\n  sprite: 0xA67; // reuse this existing base set sprite\n  xoffset: 0x0F;\n  xextent: 1;\n  zextent: 6;\n  recolour_mode: RECOLOUR_REMAP;\n  palette: PALETTE_USE_DEFAULT;\n  }\n}"
 	},
 	"template": {
-		"description": "",
-		"example": "template <identifier>([<arg1> [, <arg2> [, <arg3>...]]]) {\n  <list_of_realsprites>\n}"
+		"title": "template <identifier>([<arg1> [, <arg2> [, <arg3>...]]]) {\n  <list_of_realsprites>\n}",
+		"description": "Templates are used to avoid repetitive declaration of the same sprite alignment (e.g. when coding different train wagons of the same size). The may be used in any place where a real sprite would be used. Templates may also be nested. Parameters may be numbers or strings (for the filename)."
+	},
+	"switch": {
+		"title": "switch (<feature>, (SELF|PARENT), <ID>, <expression>) {\n  (<range>: <return_value>;)*\n  <return_value>;\n}",
+		"description": "-  ``<feature>``: The feature for which this switch is used (see Features).\n  - ``(SELF|PARENT)``: Which variables to use. ``SELF`` uses the variables of the item itself, while ``PARENT`` uses the variables of a related object.\n  - ``<ID>``: Name of this switch block. This (unique) name can be used to refer to the block from other switch- or graphics-blocks.\n  - ``<expression>``: The expression that will be evaluated to make a decision. This expression may contain variables. Instead of a single expression this may also be an array of expressions. In that case all of the array elements are evaluated in order and the last one is used to make a decision.",
+		"example": "switch (FEAT_TRAINS, PARENT, some_vehicle_switch, (position_in_consist + param[1]) % 4) {\n  0..2: return string(STRING_FOO_BAR); //return a text message\n  3: return; //return the computed value\n  5..300: return 42; //42 is always a good answer\n  400: other_switch; //chain to some other switch block\n  401: return num_vehs_in_consist + 1; //return a value with a variable access\n  CB_FAILED; //return a failure result as default\n}"
+	},
+	"if": {
+		"title": "if (expression) {\n  block;\n  } else {\n  block;\n}",
+		"description": "Conditional. Could also be done in a single line command:\n```ts\nresult = boolean_value ? if_true : if_false;\n```",
+		"example": "if (param[1] == 1) {\n  param[2] = 3\n  } else {\n  param[2] = 5\n}"
+	},
+	"tilelayout": {
+		"description": "A tile layout describes which industry or airport tiles are associated with which position relative to the northernmost (north being the top of the screen) edge of the industry or airport as a whole.",
+		"example": "tilelayout small_airport_layout_north {\n  rotation: DIRECTION_NORTH;\n  0, 0: small_airport_tiles_hangar;\n  1, 0: small_airport_tiles_terminal;\n  2, 0: small_airport_tiles_terminal;\n  3, 0: small_airport_tiles_terminal;\n  0, 1: small_airport_tiles_taxi;\n  1, 1: small_airport_tiles_taxi;\n  2, 1: small_airport_tiles_taxi;\n  3, 1: small_airport_tiles_taxi;\n  0, 2: small_airport_tiles_runway;º\n  1, 2: small_airport_tiles_runway;\n  2, 2: small_airport_tiles_runway;\n  3, 2: small_airport_tiles_runway;\n}"
+	},
+	"error": {
+		"title": "error(level, message[, extra_text[, parameter1[, parameter2]]]);",
+		"description": "- ``level`` is the severity of the message and one of ``NOTICE``, ``WARNING``, ``ERROR``, ``FATAL``:\n  | Severity    | Meaning Prefix        | Action taken              |\n  |-------------|-----------------------|---------------------------|\n  | ``NOTICE``  | Notice (none)         | continue loading grf file |\n  | ``WARNING`` | Warning \"Warning: \"   | continue loading grf file |\n  | ``FATAL``   | Fatal error \"Error: \" | abort loading of grf file |\n- ``message`` can be either a user-defined string or it can be one of the pre-defined strings which already have translations. The first {STRING}-code will always be replaced by the NewGRF name. The second {STRING}-code (if present) will be replaced by the value of ``extra_text``.\n- ``extra_text`` can be a string defined in the language files or it can be a literal string, in which case it cannot be translated. You should only use a literal string in those cases where you are sure it doesn't have to be translated, for example to provide a version string like \"0.7.0\".\n- ``parameter1``, ``parameter2`` are numeric parameters than can have any value, these can be used in the string using {COMMA}-codes."
+	},
+	"railtypetable": {
+		"title": "railtypetable {\n  ITEM [, ITEM]*\n}",
+		"description": "Each ``ITEM`` can be either a 4-byte long Identifier or string or it can have this format: ``ID : [ ID[, ID]* ]``\nThe first ID is the name (doesn't have to be 4-bytes long), the other IDs are a list of labels that are assigned to the given name if they are available.",
+		"example": "railtypetable {\n  RAIL, ELRL, MONO, MGLV,\n}"
+	},
+	"roadtypetable": {
+		"title": "roadtypetable {\n  ITEM [, ITEM]*\n}",
+		"description": "Each ``ITEM`` can be either a 4-byte long Identifier or string or it can have this format: ``ID : [ ID[, ID]* ]``\nThe first ID is the name (doesn't have to be 4-bytes long), the other IDs are a list of labels that are assigned to the given name if they are available.",
+		"example": "roadtypetable {\n  ROAD,\n}"
+	},
+	"tramtypetable": {
+		"title": "tramtypetable {\n  ITEM [, ITEM]*\n}",
+		"description": "Each ``ITEM`` can be either a 4-byte long Identifier or string or it can have this format: ``ID : [ ID[, ID]* ]``\nThe first ID is the name (doesn't have to be 4-bytes long), the other IDs are a list of labels that are assigned to the given name if they are available.",
+		"example": "tramtypetable {\n  ELRL,\n}"
 	},
 
 
 	"bitmask": {
-		"description": "Compose an integer by switching the bits at the given positions on (indexed starting at 1).",
-		"example": "bitmask(bitpos1, ...)"
+		"title": "bitmask(bitpos1, ...)",
+		"description": "Compose an integer by switching the bits at the given positions on (indexed starting at 1)."
 	},
 	"STORE_TEMP": {
+		"title": "STORE_TEMP(value, address)",
 		"description": "Store value in temporary storage. Temporary storage holds data until the final \"return\" of the current switch-chain of the current callback. Addresses 0..127 are available for the GRF to use. Addresses 0x100 and above have special purposes, which are described where they are used.",
-		"example": "STORE_TEMP(value, address)"
+		"example": "STORE_TEMP(1, 4)"
 	},
 	"STORE_PERM": {
+		"title": "STORE_PERM(value, address)",
 		"description": "Store value in permanent storage (industries, airports, towns only). Addresses Supported by OpenTTD <1.9<1.9 0..15, Supported by OpenTTD 1.91.9 0..255 are available for the GRF to use. Note that accessing permanent town registers thrashes the contents of temporary register 0x100.",
-		"example": "STORE_PERM(value, address)"
+		"example": "STORE_PERM(1, 4)"
 	},
 	"LOAD_TEMP": {
-		"description": "Get value from temporary storage. Addresses 0..127 are available for the GRF to use.",
-		"example": "LOAD_TEMP(address)"
+		"title": "LOAD_TEMP(address)",
+		"description": "Get value from temporary storage. Addresses 0..127 are available for the GRF to use."
 	},
 	"LOAD_PERM": {
-		"description": "Get value from permanent storage (industries, airports, towns only). For towns only, specifying a grfid (4-byte string, optional) allows reading the storage of other grfs. Note that accessing permanent town registers thrashes the contents of temporary register ``0x100.``",
-		"example": "LOAD_PERM(address, [, grfid])"
+		"title": "LOAD_PERM(address, [, grfid])",
+		"description": "Get value from permanent storage (industries, airports, towns only). For towns only, specifying a grfid (4-byte string, optional) allows reading the storage of other grfs. Note that accessing permanent town registers thrashes the contents of temporary register ``0x100.``"
 	},
 	"hasbit": {
-		"description": "Test whether a bit in a value is on.",
-		"example": "hasbit(value, bit_num)"
+		"title": "hasbit(value, bit_num)",
+		"description": "Test whether a bit in a value is on."
 	},
 	"getbits": {
-		"description": "**``NML 0.4.1``**. Extract some bits from a value. Result is (``value`` >> ``first``) & (1 << ``amount`` - 1)",
-		"example": "getbits(value, first, amount)"
+		"title": "getbits(value, first, amount)",
+		"description": "**``NML 0.4.1``**. Extract some bits from a value. Result is (``value`` >> ``first``) & (1 << ``amount`` - 1)"
 	},
 	"version_openttd": {
-		"description": "Return the constant representing an OpenTTD version, for example:\n  - OpenTTD 1.4.0: ``version_openttd(1, 4, 0)``\n  - OpenTTD 13.0: ``version_openttd(13, 0)``\n\n  [OpenTTD ≤1.8] Old versions before OpenTTD 1.9 also could check for specific SVN revisions. This is no longer available.",
-		"example": "[OpenTTD ≤ 1.11] version_openttd(major, minor, revision[, build]\n[OpenTTD ≥ 12] version_openttd(major, minor)"
+		"title": "[OpenTTD ≤ 1.11] version_openttd(major, minor, revision[, build]\n[OpenTTD ≥ 12] version_openttd(major, minor)",
+		"description": "Return the constant representing an OpenTTD version, for example:\n  - OpenTTD 1.4.0: ``version_openttd(1, 4, 0)``\n  - OpenTTD 13.0: ``version_openttd(13, 0)``\n\n  [OpenTTD ≤1.8] Old versions before OpenTTD 1.9 also could check for specific SVN revisions. This is no longer available."
 	},
 	"cargotype_available": {
-		"description": "Check if a certain cargo type is available in this game. ``cargotype`` must be a literal string of length 4.",
-		"example": "cargotype_available(cargotype)"
+		"title": "cargotype_available(cargotype)",
+		"description": "Check if a certain cargo type is available in this game. ``cargotype`` must be a literal string of length 4."
 	},
 	"railtype_available": {
-		"description": "Check if a railtype is available in this game. ``railtype`` must be a literal string of length 4.",
-		"example": "railtype_available(railtype)"
+		"title": "railtype_available(railtype)",
+		"description": "Check if a railtype is available in this game. ``railtype`` must be a literal string of length 4."
 	},
 	"roadtype_available": {
-		"description": "Check if a roadtype is available in this game. ``roadtype`` must be a literal string of length 4.",
-		"example": "roadtype_available(roadtype)"
-	},
+		"title": "roadtype_available(roadtype)",
+		"description": "Check if a roadtype is available in this game. ``roadtype`` must be a literal string of length 4."
+	}
 }
