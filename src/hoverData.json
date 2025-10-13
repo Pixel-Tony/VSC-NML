@@ -1,6 +1,82 @@
 {
-  "grf": {
+	"grf": {
 		"description": "The GRF block. There may ONLY be ONE GRF BLOCK in a NML file.",
 		"example": "grf {\n  grfid: <literal-string>;\n  name: <string>;\n  desc: <string>;\n  version: <expression>;\n  min_compatible_version: <expression>;\n}"
+	},
+	"grfid": {
+		"description": "This defines the GRFID of your NewGRF. It's a four-byte string that should be unique.",
+		"example": "grfid: \"SF\\01\\01\""
+	},
+	"desc": {
+		"description": "The description is similar to the name of the NewGRF.",
+		"example": "desc: \"Adds 3 new trains.\""
+	},
+	"FEAT_TRAINS": {
+		"description": "Type of item. Identifier for Trains."
+	},
+	"FEAT_ROADVEHS": {
+		"description": "Type of item. Identifier for Road vehicles."
+	},
+	"FEAT_SHIPS": {
+		"description": "Type of item. Identifier for Ships."
+	},
+	"FEAT_AIRCRAFT": {
+		"description": "Type of item. Identifier for Aircraft."
+	},
+	"FEAT_STATIONS": {
+		"description": "Type of item. Identifier for Train Stations."
+	},
+	"FEAT_CANALS": {
+		"description": "Type of item. Identifier for Ship Canals."
+	},
+	"FEAT_BRIDGES": {
+		"description": "Type of item. Identifier for Bridges in general."
+	},
+	"FEAT_HOUSES": {
+		"description": "Type of item. Identifier for Town Houses."
+	},
+	"FEAT_GLOBALVARS": {
+		"description": "Type of item. Identifier for Various Global Variables."
+	},
+	"FEAT_INDUSTRYTILES": {
+		"description": "Type of item. Identifier for Industry tiles (visible part of industries)."
+	},
+	"FEAT_INDUSTRIES": {
+		"description": "Type of item. Identifier for Industries."
+	},
+	"FEAT_CARGOS": {
+		"description": "Type of item. Identifier for Cargo types."
+	},
+	"FEAT_SOUNDEFFECTS": {
+		"description": "Type of item. Identifier for Sound effects."
+	},
+	"FEAT_AIRPORTS": {
+		"description": "Type of item. Identifier for Airports."
+	},
+	"FEAT_SIGNALS": {
+		"description": "Type of item. Identifier for Train Signals."
+	},
+	"FEAT_OBJECTS": {
+		"description": "Type of item. Identifier for Non-interactive objects (example: lighthouse)."
+	},
+	"FEAT_RAILTYPES": {
+		"description": "Type of item. Identifier for Rail types."
+	},
+	"FEAT_ROADTYPES": {
+		"description": "Type of item. Identifier for Road types."
+	},
+	"FEAT_TRAMTYPES": {
+		"description": "Type of item. Identifier for Tram types."
+	},
+	"FEAT_AIRPORTTILES": {
+		"description": "Type of item. Identifier for Airport tiles (visible part of airports)."
+	},
+	"item": {
+		"description": "An item block is a block that defines a (new) vehicle, station, industry, object, etc. This is one of those blocks that come with multiple arguments and need a feature defined.",
+		"example": "item (<feature> [, <identifier> [, <ID>]]) {\n  [<property-block>]\n  [<graphics-block>]\n  [<livery_override-block>]\n}"
+	},
+	"property": {
+		"description": "This defines the GRFID of your NewGRF. It's a four-byte string that should be unique.",
+		"example": "property {\n  <property>: <value>;\n  [<property2>: <value2>;]\n  [...;]\n}"
 	}
 }
