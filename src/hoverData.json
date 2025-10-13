@@ -137,6 +137,14 @@
 		"description": "Each ``ITEM`` can be either a 4-byte long Identifier or string or it can have this format: ``ID : [ ID[, ID]* ]``\nThe first ID is the name (doesn't have to be 4-bytes long), the other IDs are a list of labels that are assigned to the given name if they are available.",
 		"example": "tramtypetable {\n  ELRL,\n}"
 	},
+	"cargotable": {
+		"title": "cargotable {\n  ID [, ID]*\n}",
+		"description": "The cargotable is a list of 4-byte long IDs or literal strings. Please see the list of cargo labels (https://newgrf-specs.tt-wiki.net/wiki/CargoTypes#Cargo_Labels) for the currently defined cargo labels and their cargo classes."
+	},
+	"produce": {
+		"title": "produce (<ID>, [ <consume_cargo>: <consume_amount>; <...> ], [ <produce_cargo>: <produce_amount>; <...> ], <run_again>)",
+		"description": "The ``produce`` block is only available for industries and describes how the industry consumes incoming and creates outgoing cargo.\n- ``ID`` is a unique name of the block.\n- ``consume_cargo`` and ``produce_cargo`` are cargolabels (unescaped/not as a string) for a cargo that will be consumed/produced from the industry during the production step.\n- ``consume_amount`` and ``produce_amount`` are expressions giving the amount of the cargo that will be consumed/produced during the production step.\n- ``run_again`` is a boolean expression which evaluates to either 0 or 1. It indicates whether the produce callback shall be called again. **This is optional, with a default value of 0.**\n\nUp to 16 ``consume_cargo : consume_amount`` pairs and 16 ``produce_cargo : produce_amount`` pairs may be given, and either of the consume and produce lists may also be empty.\n\nAll cargo labels used in the produce block must appear in the industry's cargo_types array."
+	},
 
 
 	"bitmask": {
