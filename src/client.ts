@@ -68,10 +68,14 @@ export function activate(context: vscode.ExtensionContext) {
 			const info = hoverData[word];
 			if (info) {
 				const md = new vscode.MarkdownString();
-				md.appendMarkdown(`**${word}**\n\n`);
+				if (info.title) {
+					md.appendCodeblock(`${info.title}`, "ts");
+				} else {
+					md.appendMarkdown(`**${word}**\n\n`);
+				}
 				md.appendMarkdown(`${info.description}\n\n`);
 				if (info.example) {
-					md.appendCodeblock(info.example, 'nml');
+					md.appendCodeblock(info.example, 'ts'); // later on I'll change it to NML once this s+++ works.
 				}
 				md.isTrusted = true;
 				return new vscode.Hover(md);
@@ -88,3 +92,4 @@ function loadHoverData(filePath: string): Record<string, any> {
 	const raw = fs.readFileSync(filePath, 'utf8');
 	return JSON.parse(raw);
 }
+
