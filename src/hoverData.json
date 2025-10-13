@@ -1,0 +1,6 @@
+{
+  "grf": {
+		"description": "The GRF block. There may ONLY be ONE GRF BLOCK in a NML file.",
+		"example": "grf {\n  grfid: <literal-string>;\n  name: <string>;\n  desc: <string>;\n  version: <expression>;\n  min_compatible_version: <expression>;\n}"
+	}
+}
