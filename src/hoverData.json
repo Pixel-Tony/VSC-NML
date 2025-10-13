@@ -71,6 +71,8 @@
 	"FEAT_AIRPORTTILES": {
 		"description": "Type of item. Identifier for Airport tiles (visible part of airports)."
 	},
+
+
 	"item": {
 		"description": "An item block is a block that defines a (new) vehicle, station, industry, object, etc. This is one of those blocks that come with multiple arguments and need a feature defined.",
 		"example": "item (<feature> [, <identifier> [, <ID>]]) {\n  [<property-block>]\n  [<graphics-block>]\n  [<livery_override-block>]\n}"
@@ -78,5 +80,67 @@
 	"property": {
 		"description": "This defines the GRFID of your NewGRF. It's a four-byte string that should be unique.",
 		"example": "property {\n  <property>: <value>;\n  [<property2>: <value2>;]\n  [...;]\n}"
-	}
+	},
+	"graphics": {
+		"description": "The graphics block allows to link the item to a graphics definition or to callbacks. You can have the graphics definition also depend on several variables via an intermediate ``(random_)switch`` block.",
+		"example": "graphics {\n  <callback>: <identifier>|<return_value>;\n  [<callback2>: <identifier2>|<return_value2>;]\n  [...;]\n}"
+	},
+	"spriteset": {
+		"description":"The spriteset defines where sprites can be found in a graphics file, how big these sprites are, what their offsets should be with respect to the ingame bounding box and optionally what compression to use for the sprite. The location of the graphics file can be set once per spriteset or for each sprite separately.\n  - **left_x**: horizontal distance in pixels from the top left of the image file to the top left of the sprite;\n  - **upper_y**: vertical distance in pixels from the top left of the image file to the top left of the sprite;\n  - **width**: width of the sprite in pixels;\n  - **height**: height of the sprite in pixels;\n  - **offset_x**: horizontal offset in pixels from the center of the bounding box (see below);\n  - **offset_y**: vertical offset in pixels from the center of the bounding box (see below);\n  - **filename**: path and file name of the graphics file this sprite is in, if it is different than the one defined in the spriteset itself.",
+		"example": "spriteset (<identifier> [, <graphics_file>]) {\n  <list_of_realsprites>\n  [left_x, upper_y, width, height, offset_x, offset_y]\n  [left_x, upper_y, width, height, offset_x, offset_y, filename]\n  [offset_x, offset_y]\n  [offset_x, offset_y, filename]\n}"
+	},
+	"spritegroup": {
+		"description": "A spritegroup combines multiple spritesets into a single entity. It is only available for vehicles and is used to show different graphics for loaded and unloaded vehicles as well as different graphics for vehicles travelling and vehicles in stations.",
+		"example": "spritegroup <identifier> {\n  loading: <spriteset_identifier1>;\n  loaded:  <spriteset_identifier2>;\n}"
+	},
+	"template": {
+		"description": "",
+		"example": "template <identifier>([<arg1> [, <arg2> [, <arg3>...]]]) {\n  <list_of_realsprites>\n}"
+	},
+
+
+	"bitmask": {
+		"description": "Compose an integer by switching the bits at the given positions on (indexed starting at 1).",
+		"example": "bitmask(bitpos1, ...)"
+	},
+	"STORE_TEMP": {
+		"description": "Store value in temporary storage. Temporary storage holds data until the final \"return\" of the current switch-chain of the current callback. Addresses 0..127 are available for the GRF to use. Addresses 0x100 and above have special purposes, which are described where they are used.",
+		"example": "STORE_TEMP(value, address)"
+	},
+	"STORE_PERM": {
+		"description": "Store value in permanent storage (industries, airports, towns only). Addresses Supported by OpenTTD <1.9<1.9 0..15, Supported by OpenTTD 1.91.9 0..255 are available for the GRF to use. Note that accessing permanent town registers thrashes the contents of temporary register 0x100.",
+		"example": "STORE_PERM(value, address)"
+	},
+	"LOAD_TEMP": {
+		"description": "Get value from temporary storage. Addresses 0..127 are available for the GRF to use.",
+		"example": "LOAD_TEMP(address)"
+	},
+	"LOAD_PERM": {
+		"description": "Get value from permanent storage (industries, airports, towns only). For towns only, specifying a grfid (4-byte string, optional) allows reading the storage of other grfs. Note that accessing permanent town registers thrashes the contents of temporary register ``0x100.``",
+		"example": "LOAD_PERM(address, [, grfid])"
+	},
+	"hasbit": {
+		"description": "Test whether a bit in a value is on.",
+		"example": "hasbit(value, bit_num)"
+	},
+	"getbits": {
+		"description": "**``NML 0.4.1``**. Extract some bits from a value. Result is (``value`` >> ``first``) & (1 << ``amount`` - 1)",
+		"example": "getbits(value, first, amount)"
+	},
+	"version_openttd": {
+		"description": "Return the constant representing an OpenTTD version, for example:\n  - OpenTTD 1.4.0: ``version_openttd(1, 4, 0)``\n  - OpenTTD 13.0: ``version_openttd(13, 0)``\n\n  [OpenTTD ≤1.8] Old versions before OpenTTD 1.9 also could check for specific SVN revisions. This is no longer available.",
+		"example": "[OpenTTD ≤ 1.11] version_openttd(major, minor, revision[, build]\n[OpenTTD ≥ 12] version_openttd(major, minor)"
+	},
+	"cargotype_available": {
+		"description": "Check if a certain cargo type is available in this game. ``cargotype`` must be a literal string of length 4.",
+		"example": "cargotype_available(cargotype)"
+	},
+	"railtype_available": {
+		"description": "Check if a railtype is available in this game. ``railtype`` must be a literal string of length 4.",
+		"example": "railtype_available(railtype)"
+	},
+	"roadtype_available": {
+		"description": "Check if a roadtype is available in this game. ``roadtype`` must be a literal string of length 4.",
+		"example": "roadtype_available(roadtype)"
+	},
 }
