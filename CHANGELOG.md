@@ -1,5 +1,8 @@
 ## Change Log
 
+### 2.0.7
+- Bumped server version to 1.0.4
+
 ### 2.0.6
 - Bumped server version to 1.0.3:
     - Fixed CR whitespace in builtin symbols after splitting grammar files on Windows

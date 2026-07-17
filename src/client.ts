@@ -9,7 +9,7 @@ export function activate(context: vscode.ExtensionContext) {
 
   const { exec: serverExec, args: serverArgs } = (
     context.extensionMode == vscode.ExtensionMode.Production
-      ? { exec: context.asAbsolutePath('NMLServer' + execPrefix) }
+      ? { exec: context.asAbsolutePath(path.join('server', 'NMLServer' + execPrefix)) }
       : { exec: 'dotnet', args: ['run', '--project', context.asAbsolutePath(path.join('src', 'server'))] }
   )
 
@@ -21,9 +21,9 @@ export function activate(context: vscode.ExtensionContext) {
   // Options to control the language client
   const clientOptions: LanguageClientOptions = {
     documentSelector: [
-      { scheme: 'file', language: 'nml' },
-      { scheme: 'file', language: 'pnml' }
-    ],
+      { language: 'nml' },
+      { language: 'pnml' }
+    ]
   }
   // Create the language client
   const client = new LanguageClient(

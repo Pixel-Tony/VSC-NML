@@ -25,23 +25,23 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
-          submodules: true
+          submodules: recursive
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@v4
+        uses: actions/setup-dotnet@v6
         with:
-          dotnet-version: '9.0.x'
+          dotnet-version: '10.0.x'
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 22
 
       - name: Publish .NET
         run: |
-          dotnet publish "./src/server" --configuration Release --output "." --runtime ${{ matrix.dotnetRID }} --sc true
+          dotnet publish "./src/server" --configuration Release --runtime ${{ matrix.dotnetRID }} --sc true --output server
 
       - name: Package VSIX
         run: npm install && node esbuild.js --production && npx vsce publish --target ${{ matrix.platform }}

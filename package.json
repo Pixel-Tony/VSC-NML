@@ -3,12 +3,12 @@
     "publisher": "PNDA",
     "displayName": "NewGRF Meta Language",
     "author": "Tony Pixel",
-    "version": "2.0.6",
+    "version": "2.0.7",
     "main": "client.js",
     "scripts": {
         "node-publish": "node esbuild.js --production",
         "build": "node esbuild.js && dotnet build ./src/server",
-        "dotnet-publish": "dotnet publish ./src/server --configuration Release --sc true --output \".\"",
+        "dotnet-publish": "dotnet publish ./src/server --configuration Release --sc true --output server",
         "vscode:prepublish": "npm run dotnet-publish && npm run node-publish"
     },
     "categories": [
@@ -41,7 +41,7 @@
         "LICENSE",
         "README.md",
         "grammar",
-        "NMLServer*"
+        "server"
     ],
     "dependencies": {
         "vscode-languageclient": "^7.0.0"
