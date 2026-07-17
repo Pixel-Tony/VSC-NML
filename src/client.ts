@@ -44,4 +44,46 @@ export function activate(context: vscode.ExtensionContext) {
     })
 
   context.subscriptions.push(client.start(), disposable)
+
+  const hoverDataPath = path.join(context.extensionPath, 'src', 'hoverData.json');
+	let hoverData = loadHoverData(hoverDataPath);
+
+	// Watcher: automatically reload the hoverData.json everytime it's changed
+	const watcher = fs.watch(hoverDataPath, (eventType) => {
+		if (eventType === 'change') {
+			try {
+				hoverData = loadHoverData(hoverDataPath);
+				console.log('hoverData.json automatically reloaded');
+			} catch (err) {
+				console.error('An error ocurred while loading hoverData.json:', err);
+			}
+		}
+	});
+
+	const provider = vscode.languages.registerHoverProvider('nml', {
+		provideHover(document, position, token) {
+			const range = document.getWordRangeAtPosition(position);
+			const word = document.getText(range);
+
+			const info = hoverData[word];
+			if (info) {
+				const md = new vscode.MarkdownString();
+				md.appendMarkdown(`${info.description}`);
+				md.isTrusted = true;
+				return new vscode.Hover(md);
+			}
+			return null;
+		}
+	});
+
+	context.subscriptions.push(provider);
+	context.subscriptions.push({ dispose: () => watcher.close() });
 }
+
+function loadHoverData(filePath: string): Record<string, any> {
+	const raw = fs.readFileSync(filePath, 'utf8');
+	return JSON.parse(raw);
+}
+
+
+

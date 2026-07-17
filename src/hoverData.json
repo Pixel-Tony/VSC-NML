@@ -1,0 +1,155 @@
+{
+	"grf": {
+		"description": "```js\ngrf {\n  grfid: <literal-string>;\n  name: <string>;\n  desc: <string>;\n  version: <expression>;\n  min_compatible_version: <expression>;\n}\n```\nThe GRF block. There may ONLY be ONE GRF BLOCK in a NML file."
+	},
+	"grfid": {
+		"description": "This defines the GRFID of your NewGRF. It's a four-byte string that should be unique.\n```js\ngrfid: \"SF\\01\\01\"\n```"
+	},
+
+
+	"FEAT_TRAINS": {
+		"description": "Type of item. Identifier for Trains."
+	},
+	"FEAT_ROADVEHS": {
+		"description": "Type of item. Identifier for Road vehicles."
+	},
+	"FEAT_SHIPS": {
+		"description": "Type of item. Identifier for Ships."
+	},
+	"FEAT_AIRCRAFT": {
+		"description": "Type of item. Identifier for Aircraft."
+	},
+	"FEAT_STATIONS": {
+		"description": "Type of item. Identifier for Train Stations."
+	},
+	"FEAT_CANALS": {
+		"description": "Type of item. Identifier for Ship Canals."
+	},
+	"FEAT_BRIDGES": {
+		"description": "Type of item. Identifier for Bridges in general."
+	},
+	"FEAT_HOUSES": {
+		"description": "Type of item. Identifier for Town Houses."
+	},
+	"FEAT_GLOBALVARS": {
+		"description": "Type of item. Identifier for Various Global Variables."
+	},
+	"FEAT_INDUSTRYTILES": {
+		"description": "Type of item. Identifier for Industry tiles (visible part of industries)."
+	},
+	"FEAT_INDUSTRIES": {
+		"description": "Type of item. Identifier for Industries."
+	},
+	"FEAT_CARGOS": {
+		"description": "Type of item. Identifier for Cargo types."
+	},
+	"FEAT_SOUNDEFFECTS": {
+		"description": "Type of item. Identifier for Sound effects."
+	},
+	"FEAT_AIRPORTS": {
+		"description": "Type of item. Identifier for Airports."
+	},
+	"FEAT_SIGNALS": {
+		"description": "Type of item. Identifier for Train Signals."
+	},
+	"FEAT_OBJECTS": {
+		"description": "Type of item. Identifier for Non-interactive objects (example: lighthouse)."
+	},
+	"FEAT_RAILTYPES": {
+		"description": "Type of item. Identifier for Rail types."
+	},
+	"FEAT_ROADTYPES": {
+		"description": "Type of item. Identifier for Road types."
+	},
+	"FEAT_TRAMTYPES": {
+		"description": "Type of item. Identifier for Tram types."
+	},
+	"FEAT_AIRPORTTILES": {
+		"description": "Type of item. Identifier for Airport tiles (visible part of airports)."
+	},
+
+
+	"item": {
+		"description": "```js\nitem (<feature> [, <identifier> [, <ID>]]) {\n  [<property-block>]\n  [<graphics-block>]\n  [<livery_override-block>]\n}\n```\nAn item block is a block that defines a (new) vehicle, station, industry, object, etc. This is one of those blocks that come with multiple arguments and need a feature defined."
+	},
+	"property": {
+		"description": "```js\nproperty {\n  <property>: <value>;\n  [<property2>: <value2>;]\n  [...;]\n}\n```\nThis defines the GRFID of your NewGRF. It's a four-byte string that should be unique."
+	},
+	"graphics": {
+		"description": "```js\ngraphics {\n  <callback>: <identifier>|<return_value>;\n  [<callback2>: <identifier2>|<return_value2>;]\n  [...;]\n}```\nThe graphics block allows to link the item to a graphics definition or to callbacks. You can have the graphics definition also depend on several variables via an intermediate ``(random_)switch`` block."
+	},
+	"spriteset": {
+		"description": "```js\nspriteset (<identifier> [, <graphics_file>]) {\n  <list_of_realsprites>\n  [left_x, upper_y, width, height, offset_x, offset_y]\n  [left_x, upper_y, width, height, offset_x, offset_y, filename]\n  [offset_x, offset_y]\n  [offset_x, offset_y, filename]\n}```\nThe spriteset defines where sprites can be found in a graphics file, how big these sprites are, what their offsets should be with respect to the ingame bounding box and optionally what compression to use for the sprite. The location of the graphics file can be set once per spriteset or for each sprite separately.\n  - **left_x**: horizontal distance in pixels from the top left of the image file to the top left of the sprite;\n  - **upper_y**: vertical distance in pixels from the top left of the image file to the top left of the sprite;\n  - **width**: width of the sprite in pixels;\n  - **height**: height of the sprite in pixels;\n  - **offset_x**: horizontal offset in pixels from the center of the bounding box (see below);\n  - **offset_y**: vertical offset in pixels from the center of the bounding box (see below);\n  - **filename**: path and file name of the graphics file this sprite is in, if it is different than the one defined in the spriteset itself."
+	},
+	"spritegroup": {
+		"description": "```js\nspritegroup <identifier> {\n  loading: <spriteset_identifier1>;\n  loaded:  <spriteset_identifier2>;\n}```\nA spritegroup combines multiple spritesets into a single entity. It is only available for vehicles and is used to show different graphics for loaded and unloaded vehicles as well as different graphics for vehicles travelling and vehicles in stations."
+	},
+	"spritelayout": {
+		"description": "```js\nspritelayout <identifier> {\n  ground { }\n  childsprite { }\n  building { }\n}\n```\nThe sprite layout is composed of one or more sprites. Each sprite is defined by a ``ground``, ``building`` or ``childsprite`` block. What block to use depends on how the sprite is to be placed on the tile.\n  - ``ground`` sprites are drawn at the base of the tile, like grass and concrete, rails etc. in normal TTD. With a few exceptions (e.g. when using custom foundations), you should always provide a ground sprite, even when the building above fully covers it. This because in transparent mode, the building becomes invisible. A tile can only have one ground sprite.\n  - ``building`` sprites are drawn on top of the ground sprite. To determine their location and drawing order (what goes in front of what), they have a 3D bounding box.\n  - With ``childsprite``(s), you can effectively compose sprites from multiple parts. When placing these after a building sprite, they will use the same bounding box as the previous building sprite. When placing them before the first building sprite, they will have no bounding box, as if they would use the 'bounding box' of the ground tile. Multiple childsprites may be used per ground / building sprite.\n```js\nspritelayout airport_building1 {\n  ground { sprite: GROUNDSPRITE_NORMAL; }\n  childsprite {\n    sprite: spr_small_dirt_ne; // custom spriteset\n    always_draw: 1; // also draw in transparent mode\n  }\n  building {\n    sprite: 0xA67; // reuse this existing base set sprite\n    xoffset: 0x0F;\n    xextent: 1;\n    zextent: 6;\n    recolour_mode: RECOLOUR_REMAP;\n    palette: PALETTE_USE_DEFAULT;\n  }\n}\n```"
+	},
+	"template": {
+		"description": "```js\ntemplate <identifier>([<arg1> [, <arg2> [, <arg3>...]]]) {\n  <list_of_realsprites>\n}\n```\nTemplates are used to avoid repetitive declaration of the same sprite alignment (e.g. when coding different train wagons of the same size). The may be used in any place where a real sprite would be used. Templates may also be nested. Parameters may be numbers or strings (for the filename)."
+	},
+	"switch": {
+		"description": "```js\nswitch (<feature>, (SELF|PARENT), <ID>, <expression>) {\n  (<range>: <return_value>;)*\n  <return_value>;\n}\n```\n-  ``<feature>``: The feature for which this switch is used (see Features).\n  - ``(SELF|PARENT)``: Which variables to use. ``SELF`` uses the variables of the item itself, while ``PARENT`` uses the variables of a related object.\n  - ``<ID>``: Name of this switch block. This (unique) name can be used to refer to the block from other switch- or graphics-blocks.\n  - ``<expression>``: The expression that will be evaluated to make a decision. This expression may contain variables. Instead of a single expression this may also be an array of expressions. In that case all of the array elements are evaluated in order and the last one is used to make a decision.\n```js\nswitch (FEAT_TRAINS, PARENT, some_vehicle_switch, (position_in_consist + param[1]) % 4) {\n  0..2: return string(STRING_FOO_BAR); //return a text message\n  3: return; //return the computed value\n  5..300: return 42; //42 is always a good answer\n  400: other_switch; //chain to some other switch block\n  401: return num_vehs_in_consist + 1; //return a value with a variable access\n  CB_FAILED; //return a failure result as default\n}\n```"
+	},
+	"if": {
+		"description": "```js\nif (expression) {\n  block;\n  } else {\n  block;\n}\n```\nConditional. Could also be done in a single line command:\n```ts\nresult = boolean_value ? if_true : if_false;\n```\n```js\nif (param[1] == 1) {\n  param[2] = 3\n  } else {\n  param[2] = 5\n}\n```"
+	},
+	"tilelayout": {
+		"description": "A tile layout describes which industry or airport tiles are associated with which position relative to the northernmost (north being the top of the screen) edge of the industry or airport as a whole.\n```js\ntilelayout small_airport_layout_north {\n  rotation: DIRECTION_NORTH;\n  0, 0: small_airport_tiles_hangar;\n  1, 0: small_airport_tiles_terminal;\n  2, 0: small_airport_tiles_terminal;\n  3, 0: small_airport_tiles_terminal;\n  0, 1: small_airport_tiles_taxi;\n  1, 1: small_airport_tiles_taxi;\n  2, 1: small_airport_tiles_taxi;\n  3, 1: small_airport_tiles_taxi;\n  0, 2: small_airport_tiles_runway;º\n  1, 2: small_airport_tiles_runway;\n  2, 2: small_airport_tiles_runway;\n  3, 2: small_airport_tiles_runway;\n}\n```"
+	},
+	"error": {
+		"description": "```js\nerror(level, message[, extra_text[, parameter1[, parameter2]]]);\n```- ``level`` is the severity of the message and one of ``NOTICE``, ``WARNING``, ``ERROR``, ``FATAL``:\n  | Severity    | Meaning Prefix        | Action taken              |\n  |-------------|-----------------------|---------------------------|\n  | ``NOTICE``  | Notice (none)         | continue loading grf file |\n  | ``WARNING`` | Warning \"Warning: \"   | continue loading grf file |\n  | ``FATAL``   | Fatal error \"Error: \" | abort loading of grf file |\n- ``message`` can be either a user-defined string or it can be one of the pre-defined strings which already have translations. The first {STRING}-code will always be replaced by the NewGRF name. The second {STRING}-code (if present) will be replaced by the value of ``extra_text``.\n- ``extra_text`` can be a string defined in the language files or it can be a literal string, in which case it cannot be translated. You should only use a literal string in those cases where you are sure it doesn't have to be translated, for example to provide a version string like \"0.7.0\".\n- ``parameter1``, ``parameter2`` are numeric parameters than can have any value, these can be used in the string using {COMMA}-codes."
+	},
+	"railtypetable": {
+		"description": "```js\nrailtypetable {\n  ITEM [, ITEM]*\n}\n```\nEach ``ITEM`` can be either a 4-byte long Identifier or string or it can have this format: ``ID : [ ID[, ID]* ]``\nThe first ID is the name (doesn't have to be 4-bytes long), the other IDs are a list of labels that are assigned to the given name if they are available.\n```js\nrailtypetable {\n  RAIL, ELRL, MONO, MGLV,\n}\n```"
+	},
+	"roadtypetable": {
+		"description": "```js\nroadtypetable {\n  ITEM [, ITEM]*\n}\n```\nEach ``ITEM`` can be either a 4-byte long Identifier or string or it can have this format: ``ID : [ ID[, ID]* ]``\nThe first ID is the name (doesn't have to be 4-bytes long), the other IDs are a list of labels that are assigned to the given name if they are available.\n```js\nroadtypetable {\n  ROAD,\n}\n```"
+	},
+	"tramtypetable": {
+		"description": "```js\ntramtypetable {\n  ITEM [, ITEM]*\n}\n```\nEach ``ITEM`` can be either a 4-byte long Identifier or string or it can have this format: ``ID : [ ID[, ID]* ]``\nThe first ID is the name (doesn't have to be 4-bytes long), the other IDs are a list of labels that are assigned to the given name if they are available.\n```js\ntramtypetable {\n  ELRL,\n}\n```"
+	},
+	"cargotable": {
+		"description": "```js\ncargotable {\n  ID [, ID]*\n}\n```\nThe cargotable is a list of 4-byte long IDs or literal strings. Please see the list of cargo labels (https://newgrf-specs.tt-wiki.net/wiki/CargoTypes#Cargo_Labels) for the currently defined cargo labels and their cargo classes."
+	},
+	"produce": {
+		"description": "```js\nproduce (<ID>, [ <consume_cargo>: <consume_amount>; <...> ], [ <produce_cargo>: <produce_amount>; <...> ], <run_again>)\n```\nThe ``produce`` block is only available for industries and describes how the industry consumes incoming and creates outgoing cargo.\n- ``ID`` is a unique name of the block.\n- ``consume_cargo`` and ``produce_cargo`` are cargolabels (unescaped/not as a string) for a cargo that will be consumed/produced from the industry during the production step.\n- ``consume_amount`` and ``produce_amount`` are expressions giving the amount of the cargo that will be consumed/produced during the production step.\n- ``run_again`` is a boolean expression which evaluates to either 0 or 1. It indicates whether the produce callback shall be called again. **This is optional, with a default value of 0.**\n\nUp to 16 ``consume_cargo : consume_amount`` pairs and 16 ``produce_cargo : produce_amount`` pairs may be given, and either of the consume and produce lists may also be empty.\n\nAll cargo labels used in the produce block must appear in the industry's cargo_types array."
+	},
+
+
+	"bitmask": {
+		"description": "```js\nbitmask(bitpos1, ...)\n```\nCompose an integer by switching the bits at the given positions on (indexed starting at 1)."
+	},
+	"STORE_TEMP": {
+		"description": "```js\nSTORE_TEMP(value, address)\n```\nStore value in temporary storage. Temporary storage holds data until the final \"return\" of the current switch-chain of the current callback. Addresses 0..127 are available for the GRF to use. Addresses 0x100 and above have special purposes, which are described where they are used.\n```js\nSTORE_TEMP(1, 4)\n```"
+	},
+	"STORE_PERM": {
+		"description": "```js\nSTORE_PERM(value, address)\n```\nStore value in permanent storage (industries, airports, towns only). Addresses Supported by OpenTTD <1.9<1.9 0..15, Supported by OpenTTD 1.91.9 0..255 are available for the GRF to use. Note that accessing permanent town registers thrashes the contents of temporary register 0x100.\n```js\nSTORE_PERM(1, 4)\n```"
+	},
+	"LOAD_TEMP": {
+		"description": "```js\nLOAD_TEMP(address)\n```\nGet value from temporary storage. Addresses 0..127 are available for the GRF to use."
+	},
+	"LOAD_PERM": {
+		"description": "```js\nLOAD_PERM(address, [, grfid])\n```\nGet value from permanent storage (industries, airports, towns only). For towns only, specifying a grfid (4-byte string, optional) allows reading the storage of other grfs. Note that accessing permanent town registers thrashes the contents of temporary register ``0x100.``"
+	},
+	"hasbit": {
+		"description": "```js\nhasbit(value, bit_num)\n```\nTest whether a bit in a value is on."
+	},
+	"getbits": {
+		"description": "```js\ngetbits(value, first, amount)\n```\n**``NML 0.4.1``**. Extract some bits from a value. Result is (``value`` >> ``first``) & (1 << ``amount`` - 1)"
+	},
+	"version_openttd": {
+		"description": "```js\n[OpenTTD ≤ 1.11] version_openttd(major, minor, revision[, build]\n[OpenTTD ≥ 12] version_openttd(major, minor)\n```\nReturn the constant representing an OpenTTD version, for example:\n  - OpenTTD 1.4.0: ``version_openttd(1, 4, 0)``\n  - OpenTTD 13.0: ``version_openttd(13, 0)``\n\n  [OpenTTD ≤1.8] Old versions before OpenTTD 1.9 also could check for specific SVN revisions. This is no longer available."
+	},
+	"cargotype_available": {
+		"description": "```js\ncargotype_available(cargotype)\n```\nCheck if a certain cargo type is available in this game. ``cargotype`` must be a literal string of length 4."
+	},
+	"railtype_available": {
+		"description": "```js\nrailtype_available(railtype)\n```\nCheck if a railtype is available in this game. ``railtype`` must be a literal string of length 4."
+	},
+	"roadtype_available": {
+		"description": "```js\nroadtype_available(roadtype)\n```\nCheck if a roadtype is available in this game. ``roadtype`` must be a literal string of length 4."
+	}
+}
