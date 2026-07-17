@@ -21,9 +21,9 @@ export function activate(context: vscode.ExtensionContext) {
   // Options to control the language client
   const clientOptions: LanguageClientOptions = {
     documentSelector: [
-      { scheme: 'file', language: 'nml' },
-      { scheme: 'file', language: 'pnml' }
-    ],
+      { language: 'nml' },
+      { language: 'pnml' }
+    ]
   }
   // Create the language client
   const client = new LanguageClient(
